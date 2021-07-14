@@ -1,0 +1,204 @@
+<?php
+include 'includes/connect.php';
+  if($_SESSION['admin_sid']==session_id())
+  {
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- CORE CSS-->
+  <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <!-- Custome CSS-->    
+  <link href="css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+  <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+  <link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+ 
+</head>
+
+<body>
+  <!-- Start Page Loading -->
+  <div id="loader-wrapper">
+      <div id="loader"></div>        
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+  </div>
+  <!-- End Page Loading -->
+
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- START HEADER -->
+  <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed">
+            <nav class="navbar-color">
+                <div class="nav-wrapper">
+                    <ul class="left">                      
+                      <li><h1 class="logo-wrapper"><a href="index.php" class="brand-logo darken-1"><img src="images/logo.png" alt="logo"></a> <span class="logo-text">Logo</span></h1></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- end header nav-->
+  </header>
+  <!-- END HEADER -->
+
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- START MAIN -->
+  <div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+
+      <!-- START LEFT SIDEBAR NAV-->
+      <aside id="left-sidebar-nav">
+        <ul id="slide-out" class="side-nav fixed leftside-navigation">
+            <li class="user-details cyan darken-2">
+            <div class="row">
+                <div class="col col s4 m4 l4">
+                    <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                </div>
+        <div class="col col s8 m8 l8">
+                    <ul id="profile-dropdown" class="dropdown-content">
+                        <li><a href="routers/logout.php"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col col s8 m8 l8">
+                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?php echo $name;?> <i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <p class="user-roal"><?php echo $role;?></p>
+                </div>
+            </div>
+            </li>
+            <li class="bold"><a href="index.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> Report</a>
+            </li>
+  
+            <li class="bold"><a href="users.php" class="waves-effect waves-cyan"><i class="mdi-social-person"></i> Users</a>
+            </li>       
+        </ul>
+        <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+        </aside>
+      <!-- END LEFT SIDEBAR NAV-->
+
+      <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+      <!-- START CONTENT -->
+      <section id="content">
+
+        <!--breadcrumbs start-->
+        <div id="breadcrumbs-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">All Orders</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--breadcrumbs end-->
+
+
+        <!--start container-->
+        <div class="container">
+          <p class="caption">Booking Report.</p>
+          <div class="divider"></div>
+      <form class="formValidate" id="formValidate" method="post" action="place-order.php" novalidate="novalidate">
+            <div class="row">
+              <div class="col s12 m4 l3">
+                <h4 class="header">Report All</h4>
+              </div>
+              <div>
+                  <table id="data-table-customer" class="responsive-table display" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Address</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Payment Type</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+        <?php
+        $result = mysqli_query($con, "SELECT * FROM orders");
+        while($row = mysqli_fetch_array($result))
+        {
+          echo '<tr><td>'.$row["id"].'</td><td>'.$row["customer_id"].'</td><td>'.$row["address"].'</td><td>'.$row["description"].'</td><td>'.$row["date"].'</td><td>'.$row["payment_type"].'</td><td>RM'.$row["total"].'</td><td>'.$row["status"].'</td>';                      
+          
+
+        }
+        ?>
+                    </tbody>
+</table>
+             
+      </form>
+            <div class="divider"></div>
+            
+          </div>
+        </div>
+        <!--end container-->
+
+      </section>
+      <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+
+  </div>
+  <!-- END MAIN -->
+
+
+
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- START FOOTER -->
+ <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        <span>Copyright © 2020 <a class="grey-text text-lighten-4" href="#" target="_blank">Students</a> All rights reserved.</span>
+        <span class="right"> Powered by <a class="grey-text text-lighten-4" href="#">Yazid 4182007701</a></span>
+        </div>
+    </div>
+  </footer>
+    <!-- END FOOTER -->
+
+
+
+    <!-- ================================================
+    Scripts
+    ================================================ -->
+    
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="js/plugins/jquery-1.11.2.min.js"></script>    
+    <!--angularjs-->
+    <script type="text/javascript" src="js/plugins/angular.min.js"></script>
+    <!--materialize js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--scrollbar-->
+    <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>       
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="js/plugins.min.js"></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript" src="js/custom-script.js"></script>
+</body>
+
+</html>
+<?php
+  }
+  else
+  {
+    if($_SESSION['customer_id']==session_id())
+    {
+      header("location:orders.php");    
+    }
+    else{
+      header("location:login.php");
+    }
+  }
+?>
